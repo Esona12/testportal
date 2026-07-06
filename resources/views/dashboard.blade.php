@@ -52,7 +52,7 @@
                         <p class="text-xs font-semibold text-amber-600 uppercase tracking-wider">Open Applications</p>
                         <span
                             class="inline-flex items-center rounded-md bg-amber-50 px-1.5 py-0.5 text-[10px] font-medium text-amber-700 ring-1 ring-inset ring-amber-600/10">
-                            {{ $totalApplications > 0 ? round(($open / $totalApplications) * 100) : 0 }}%
+                            {{ $totalApplications > 0 ? number_format(($open / $totalApplications) * 100, 1) : 0 }}%
                         </span>
                     </div>
                     <p class="text-2xl font-extrabold text-gray-900 mt-1 tracking-tight">
@@ -80,7 +80,7 @@
                         <p class="text-xs font-semibold text-indigo-600 uppercase tracking-wider">Pending Review</p>
                         <span
                             class="inline-flex items-center rounded-md bg-indigo-50 px-1.5 py-0.5 text-[10px] font-medium text-indigo-700 ring-1 ring-inset ring-indigo-600/10">
-                            {{ $totalApplications > 0 ? round(($underReview / $totalApplications) * 100) : 0 }}%
+                            {{ $totalApplications > 0 ? number_format(($underReview / $totalApplications) * 100, 1) : 0 }}%
                         </span>
                     </div>
                     <p class="text-2xl font-extrabold text-gray-900 mt-1 tracking-tight">
@@ -108,7 +108,7 @@
                         <p class="text-xs font-semibold text-emerald-600 uppercase tracking-wider">Approved</p>
                         <span
                             class="inline-flex items-center rounded-md bg-emerald-50 px-1.5 py-0.5 text-[10px] font-medium text-emerald-700 ring-1 ring-inset ring-emerald-600/10">
-                            {{ $totalApplications > 0 ? round(($approved / $totalApplications) * 100) : 0 }}%
+                            {{ $totalApplications > 0 ? number_format(($approved / $totalApplications) * 100, 1) : 0 }}%
                         </span>
                     </div>
                     <p class="text-2xl font-extrabold text-gray-900 mt-1 tracking-tight">

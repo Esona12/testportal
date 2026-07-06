@@ -31,7 +31,7 @@ class ApplicationsTable extends Component implements HasActions, HasSchemas, Has
 
             // Dynamically generates the URL route for each clicked row
             ->recordUrl(function (Application $record) {
-                return route('applications.show', ['application' => $record->APL_ID]);
+                return route('applications.show', ['id' => $record->APL_ID]);
             })
 
             // Instructs the browser to open that generated route in a new tab/window
@@ -69,13 +69,12 @@ class ApplicationsTable extends Component implements HasActions, HasSchemas, Has
                     ->label('Status')
                     ->badge()
                     ->colors([
-                        'danger' => 'rejected',
-                        'warning' => 'pending',
-                        'info' => 'under_review',
-                        'success' => 'approved',
+                        'danger' => 'pending_review',
+                        'success' => 'Accepted',
+                        'danger' => 'Declined',
                     ])
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
             ]);
     }
 

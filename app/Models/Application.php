@@ -19,7 +19,7 @@ class Application extends Model
         | Participant Information
         |--------------------------------------------------------------------------
         */
-
+        'APL_Status',
         'APL_FName',
         'APL_MName',
         'APL_LName',
@@ -163,5 +163,14 @@ class Application extends Model
 
         'APL_Consent_Form_File' => 'array',
     ];
-    
+
+    public function reviews()
+    {
+        return $this->hasMany(ApplicationReview::class);
+    }
+
+    public function latestReview()
+    {
+        return $this->hasOne(ApplicationReview::class)->latestOfMany();
+    }
 }

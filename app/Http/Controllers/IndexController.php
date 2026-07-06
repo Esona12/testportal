@@ -12,9 +12,9 @@ class IndexController extends Controller
     {
         $totalApplications = Application::count();
         $open = Application::where('APL_Status', 'open')->count();
-        $underReview = Application::where('APL_Status', 'under review')->count();
-        $approved = Application::where('APL_Status', 'approved')->count();
-        $declined = Application::where('APL_Status', 'declined')->count();
+        $underReview = Application::where('APL_Status', 'Pending Review')->count();
+        $approved = Application::where('APL_Status', 'Accepted')->count();
+        $declined = Application::where('APL_Status', 'Declined')->count();
 
         $centres = DB::table('programme_centres')
             ->select('name', 'location')
