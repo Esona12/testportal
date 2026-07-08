@@ -72,7 +72,7 @@
                             class="inline-flex items-center px-4 py-2 rounded-xl text-xs font-bold uppercase tracking-wider shadow-2xs border
                         @if (($application->APL_Status ?? '') === 'approved' || ($application->APL_Status ?? '') === 'Accepted') bg-emerald-50 text-emerald-700 border-emerald-200 dark:bg-emerald-950/40 dark:text-emerald-400 dark:border-emerald-900/60
                         @elseif(($application->APL_Status ?? '') === 'declined' || ($application->APL_Status ?? '') === 'Declined') bg-rose-50 text-rose-700 border-rose-200 dark:bg-rose-950/40 dark:text-rose-400 dark:border-rose-900/60
-                        @else bg-amber-50 text-amber-700 border-amber-200 dark:bg-amber-950/40 dark:text-amber-400 dark:border-amber-900/60 @endif">
+                        @else  bg-blue-50 text-blue-700 border-blue-200 dark:bg-blue-950/40 dark:text-blue-400 dark:border-blue-900/60 @endif">
                             {{ str_replace('_', ' ', $application->APL_Status ?? 'Pending Review') }}
                         </span>
                     </div>
@@ -127,12 +127,26 @@
                                 Verification Documents</h4>
 
                             <div class="space-y-3">
-                                @php $hasFiles = false; @endphp
+                                @php
+                                    $hasFiles = false;
 
-                                @foreach (['APL_ID_File', 'Birth_Certificate_File', 'APL_Passport_Photo_File', 'APL_Parent_ID_File', 'APL_Authorized_Pickup_ID_File', 'APL_Emergency_Contact_ID_File', 'APL_Consent_Form_File'] as $fileKey)
-                                    @if (!empty($application->$fileKey) && isset($fields[$fileKey]))
+                                    $fileLabels = [
+                                        'APL_ID_File' => 'Participant Identification',
+                                        'APL_Birth_Certificate_File' => 'Participant Birth Certificate',
+                                        'APL_Passport_Photo_File' => 'Passport Photograph',
+                                        'APL_Parent_ID_File' => 'Parent/Guardian Identification',
+                                        'APL_Authorized_Pickup_ID_File' => 'Authorized Pickup Identification',
+                                        'APL_Emergency_Contact_ID_File' => 'Emergency Contact Identification',
+                                        'APL_Consent_Form_File' => 'Signed Consent Form',
+                                    ];
+                                @endphp
+
+                                @foreach (array_keys($fileLabels) as $fileKey)
+                                    @if (!empty($application->$fileKey))
                                         @php $hasFiles = true; @endphp
-                                        <a href="{{ Storage::url($application->$fileKey) }}" target="_blank"
+
+                                        <a href="{{ route('documents.show', ['path' => $application->$fileKey]) }}"
+                                            target="_blank"
                                             class="flex items-center justify-between p-3.5 bg-slate-50 dark:bg-slate-900/60 hover:bg-amber-50/60 dark:hover:bg-amber-950/40 border border-slate-100 dark:border-slate-800 rounded-xl transition group">
                                             <div class="flex items-center gap-3 min-w-0">
                                                 <div
@@ -145,11 +159,13 @@
                                                         </path>
                                                     </svg>
                                                 </div>
+
                                                 <span
                                                     class="text-xs font-bold text-slate-700 dark:text-slate-300 truncate tracking-tight pr-2">
-                                                    {{ $fields[$fileKey]->Question }}
+                                                    {{ $fileLabels[$fileKey] }}
                                                 </span>
                                             </div>
+
                                             <svg class="w-4 h-4 text-slate-400 group-hover:translate-x-0.5 transition-transform shrink-0"
                                                 fill="none" stroke="currentColor" viewBox="0 0 24 24"
                                                 xmlns="http://www.w3.org/2000/svg">

@@ -3,6 +3,12 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Http\Request;
+use Illuminate\Routing\UrlGenerator;
+use Illuminate\Support\Str;
+use Livewire\Livewire;
+use Illuminate\Support\Facades\Route;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -11,7 +17,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        
     }
 
     /**
@@ -19,6 +25,19 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Livewire::setScriptRoute(function ($handle) {
+            return Route::get('/lead-up-review/livewire/livewire.js', $handle);
+        });
+
+        Livewire::setUpdateRoute(function ($handle) {
+            return Route::post('/lead-up-review/livewire/update', $handle);
+        });
+
+        URL::forceRootUrl(config('app.url'));
+
+        if (config('app.env') !== 'local') {
+            URL::forceScheme('https');
+			URL::forceRootUrl(config('app.url'));
+        }
     }
 }

@@ -15,31 +15,31 @@ class ApplicationShow extends Component
     public string $reviewer_notes = '';
 
     public function mount($id)
-    {
-        $this->application = Application::findOrFail($id);
+{
+    $this->application = Application::findOrFail($id);
 
-        $review = ApplicationReview::where('application_id', $this->application->APL_ID)
-            ->where('user_id', Auth::id())
-            ->first();
+    $review = ApplicationReview::where(
+        'application_id',
+        $this->application->APL_ID
+    )->first();
 
-        if ($review) {
-            $this->APL_Status = trim($review->status) ?: 'Open';
-            $this->reviewer_notes = $review->notes ?? '';
-        } else {
-            $this->APL_Status = trim($this->application->APL_Status ?? 'Open');
-            $this->reviewer_notes = '';
-        }
-
-        // FINAL SAFETY NET (VERY IMPORTANT)
-        if (! in_array($this->APL_Status, [
-            'Open',
-            'Pending Review',
-            'Accepted',
-            'Declined',
-        ])) {
-            $this->APL_Status = 'Open';
-        }
+    if ($review) {
+        $this->APL_Status = trim($review->status ?: 'Open');
+        $this->reviewer_notes = $review->notes ?? '';
+    } else {
+        $this->APL_Status = trim($this->application->APL_Status ?: 'Open');
+        $this->reviewer_notes = '';
     }
+
+    if (! in_array($this->APL_Status, [
+        'Open',
+        'Pending Review',
+        'Accepted',
+        'Declined',
+    ])) {
+        $this->APL_Status = 'Open';
+    }
+}
 
     protected function rules(): array
     {

@@ -69,7 +69,7 @@ class ApplicationsTable extends Component implements HasActions, HasSchemas, Has
                     ->label('Status')
                     ->badge()
                     ->colors([
-                        'danger' => 'pending_review',
+                        'info' => 'Pending Review',
                         'success' => 'Accepted',
                         'danger' => 'Declined',
                     ])
