@@ -13,7 +13,7 @@ class CentreController extends Controller
     {
         $applications = Application::query()->where('APL_Programme_Center', $centre->name)->latest()->get();
 
-        $approvedCount = $applications->where('APL_Status', 'Approved')->count();
+        $approvedCount = $applications->where('APL_Status', 'Accepted')->count();
 
         $declinedCount = $applications->where('APL_Status', 'Declined')->count();
 
