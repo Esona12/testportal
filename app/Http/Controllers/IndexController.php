@@ -68,14 +68,10 @@ class IndexController extends Controller
 
     public function liveMail()
     {
-        $applications = Application::query()->where('APL_Status', 'Accepted')->where('APL_INVALID', 1)->whereNull('APL_Email_Sent')->get();
+        $applications = Application::query()->where('APL_Status', 'Accepted')->where('APL_INVALID', 1)->where('APL_Email_Sent', 0)->get();
 
         foreach ($applications as $application) {
-            Mail::to($application->APL_Parent_Email)->send(new LeadUpAcceptedMail($application));
-
-            $application->update([
-                'APL_Email_Sent' => now(),
-            ]);
+            Mail::to($application->APL_Parent_Email)->queue(new LeadUpAcceptedMail($application));
         }
     }
 }

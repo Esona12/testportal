@@ -4,12 +4,13 @@ namespace App\Mail;
 
 use App\Models\Application;
 use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 
-class LeadUpAcceptedMail extends Mailable
+class LeadUpAcceptedMail extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
