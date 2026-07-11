@@ -74,7 +74,7 @@ class IndexController extends Controller
             Mail::to($application->APL_Parent_Email)->send(new LeadUpAcceptedMail($application));
 
             $application->update([
-                'acceptance_email_sent_at' => now(),
+                'APL_Email_Sent' => now(),
             ]);
         }
     }
