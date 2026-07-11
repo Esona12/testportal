@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Application;
+use App\Mail\LeadUpAcceptedMail;
+use Illuminate\Support\Facades\Mail;
 use DB;
 
 class IndexController extends Controller
@@ -41,4 +43,28 @@ class IndexController extends Controller
 
         return view('livewire.pages.applications.show-record', compact('application', 'fields'));
     }
+
+    public function testMail()
+    {
+        $application = Application::where('APL_ID', 468)->first();
+        Mail::to($application->APL_Parent_Email)->send(new LeadUpAcceptedMail($application));
+
+        // $name = "Amirah Ali";
+        // Http::withHeaders([
+        //     'appID' => env('SWIFT_APP_ID'),
+        //     'Authorization' => 'Bearer ' . env('SWIFT_TOKEN'),
+        // ])->post('https://swift.msya.gov.tt/api/general', [
+        //     'email' => 'aliamirah07@gmail.com',
+        //     'title' => 'Congratulations!',
+        //     'subject' => 'Lead Up Application (2026)',
+        //     'name' => $name,
+        //     'body' => 'We are excited to welcome you and look forward to meeting you on Monday 13th July 2026 at your assigned RAPP LEAD-UP Centre. Get ready for four weeks of fun, learning, new friendships, exciting activities, and unforgettable experiences!. See you on Monday! We can\'t wait to begin this journey with you.',
+        //     'app' => 'LEAD Up 2026',
+        //     'header' => "You have been selected to participate in the RAPP LEAD-UP (Leadership, Empowerment, Advancement, Development, Upliftment and Progress) Vacation Programme!",
+        //     'fromAddress' => 'noreply.mydns@gov.tt ',
+        //     'fromName' => 'MSYA',
+        // ]);
+    }
+
+    public function liveMail() {}
 }

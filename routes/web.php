@@ -26,6 +26,10 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     })
         ->where('path', '.*')
         ->name('documents.show');
+
+     Route::get('/email/send-test', [IndexController::class, 'testMail'])->name('testMail');
+     Route::get('/email/send-live', [IndexController::class, 'liveMail'])->name('liveMail');
+
 });
 
 Route::view('profile', 'profile')
