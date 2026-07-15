@@ -132,7 +132,7 @@
             {{-- ================= SECTION TITLE ================= --}}
             <div class="border-b border-gray-200 pb-4">
                 <h3 class="text-lg font-bold text-gray-900 tracking-tight">
-                    Programme Centers
+                   All Facilities
                 </h3>
                 <p class="text-sm text-gray-500 mt-0.5">
                     Live application weights across regional centers
